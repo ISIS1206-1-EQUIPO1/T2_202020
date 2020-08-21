@@ -61,27 +61,17 @@ public class ArregloDinamico<T extends Comparable<T>> implements IArregloDinamic
 
 		public T darElemento(int i) {
 			// TODO implementar
-			T element = null;
-			for(int j = 0; j<tamanoAct; j++)
-			{
-				if(i==j)
-					element = elementos[j];
-			}
-			return element;
+			return elementos != null && i >= 1 && i <= tamanoMax ? elementos[ i - 1 ] : null;
 		}
 
 		public T buscar(T dato) {
 			// TODO implementar
 			// Recomendacion: Usar el criterio de comparacion natural (metodo compareTo()) definido en Strings.
 			T element = null;
-			boolean encontrado = false;
-			for(int i=0; i<tamanoAct && !encontrado; i++)
+			for(int i = 0; i < tamanoAct && element == null; i++)
 			{
-				if(elementos[i].compareTo(dato)==0)
-				{
+				if( elementos[ i ].compareTo( dato ) == 0 )
 					element = dato;
-					encontrado = true;
-				}
 			}
 			return element;
 		}
@@ -89,8 +79,22 @@ public class ArregloDinamico<T extends Comparable<T>> implements IArregloDinamic
 		public T eliminar(T dato) {
 			// TODO implementar
 			// Recomendacion: Usar el criterio de comparacion natural (metodo compareTo()) definido en Strings.
-			
-			return null;
+			T eliminado = null;
+			T [ ] copia = (T[]) new Object[ tamanoMax ];
+			for( int i = 0, j = 0; i < tamanoAct; i++ )
+			{
+				if( elementos[ i ].compareTo( dato ) == 0 )
+				{
+					eliminado = elementos[ i ]; 
+				}
+				else
+				{
+					copia[ j ] = elementos[ i ];
+					j++;
+				}
+			}
+			elementos = copia;
+			return eliminado;
 		}
 
 
