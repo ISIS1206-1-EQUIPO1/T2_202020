@@ -1,51 +1,61 @@
 package model.logic;
 
 import model.data_structures.ArregloDinamico;
+import model.data_structures.ElementoNoExisteException;
 import model.data_structures.IArregloDinamico;
+import model.data_structures.IndiceInvalidoException;
 
 /**
  * Definicion del modelo del mundo
  *
  */
-public class Modelo {
+public class Modelo < T extends Comparable< T > >
+{
 	/**
 	 * Atributos del modelo del mundo
 	 */
-	private IArregloDinamico<Integer> datos;
+	private IArregloDinamico<T> datos;
 	
 	/**
 	 * Constructor del modelo del mundo con capacidad predefinida
 	 */
 	public Modelo()
 	{
-		datos = new ArregloDinamico<Integer>(7);
+		try 
+		{
+			datos = new ArregloDinamico<T>(7);
+		} 
+		catch (IndiceInvalidoException e) 
+		{
+			// No deberia pasar por acá
+		}
 	}
 	
 	/**
 	 * Constructor del modelo del mundo con capacidad dada
 	 * @param tamano
 	 */
-	public Modelo(int capacidad)
+	public Modelo( int capacidad ) throws IndiceInvalidoException
 	{
-		datos = new ArregloDinamico<Integer>(capacidad);
+		datos = new ArregloDinamico<T>(capacidad);
 	}
 	
 	/**
 	 * Servicio de consulta de numero de elementos presentes en el modelo 
 	 * @return numero de elementos presentes en el modelo
 	 */
-	public int darTamano()
+	public int actSize()
 	{
-		return datos.darTamano();
+		return datos.actSize();
 	}
 
 	/**
 	 * Requerimiento de agregar dato
 	 * @param dato
 	 */
-	public void agregar(Integer dato)
+	public void addFirst( T element ) throws ElementoNoExisteException
 	{	
-		datos.agregar(dato);
+		datos.addFirst( element );
 	}
 	
 	/**
@@ -53,9 +63,9 @@ public class Modelo {
 	 * @param dato Dato a buscar
 	 * @return dato encontrado
 	 */
-	public Integer buscar(Integer dato)
+	public T getElement( T element ) throws ElementoNoExisteException
 	{
-		return datos.buscar(dato);
+		return datos.getElement( element );
 	}
 	
 	/**
@@ -63,9 +73,9 @@ public class Modelo {
 	 * @param dato Dato a eliminar
 	 * @return dato eliminado
 	 */
-	public Integer eliminar(Integer dato)
+	public T deleteElement( T element ) throws ElementoNoExisteException
 	{
-		return datos.eliminar(dato);
+		return datos.deleteElement( element );
 	}
 
 

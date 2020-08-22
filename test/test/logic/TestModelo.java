@@ -11,7 +11,7 @@ public class TestModelo {
 	private Modelo modelo;
 	private static int CAPACIDAD=100;
 	
-	@Before
+/*	@Before
 	public void setUp1() {
 		modelo= new Modelo(CAPACIDAD);
 	}
@@ -49,6 +49,6 @@ public class TestModelo {
 		setUp2();
 		// TODO Completar la prueba
 		
-	}
+	}*/
 
 }

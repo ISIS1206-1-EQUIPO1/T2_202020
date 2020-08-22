@@ -12,7 +12,7 @@ public class TestArregloDinamico {
 	private ArregloDinamico arreglo;
 	private static int TAMANO=100;
 	
-	@Before
+/*	@Before
 	public void setUp1() {
 		arreglo= new ArregloDinamico(TAMANO);
 	}
@@ -32,6 +32,6 @@ public class TestArregloDinamico {
 	public void testDarElemento() {
 		setUp2();
 		// TODO
-	}
+	}*/
 
 }
