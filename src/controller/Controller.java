@@ -1,9 +1,5 @@
 package controller;
 
-import java.util.Scanner;
-
-import model.data_structures.ElementoNoExisteException;
-import model.data_structures.IndiceInvalidoException;
 import model.logic.Modelo;
 import view.View;
 

@@ -1,9 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER">
+		<attributes>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="test"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
-	<classpathentry kind="lib" path="C:/Users/javie/Talleres/T1_202020/src/model/logic/opencsv-5.2.jar"/>
+	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
+	<classpathentry exported="true" kind="lib" path="C:/Users/javie/Talleres/T1_202020/opencsv-5.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/javie/Talleres/T1_202020/commons-lang3-3.11.jar"/>
+	<classpathentry kind="lib" path="C:/Users/javie/Talleres/T1_202020/commons-collections4-4.4.jar"/>
+	<classpathentry kind="lib" path="C:/Users/javie/Talleres/T1_202020/commons-logging-1.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/javie/Talleres/T1_202020/commons-beanutils-1.9.4.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
