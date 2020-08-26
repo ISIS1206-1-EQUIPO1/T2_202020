@@ -13,6 +13,11 @@ public interface IArregloDinamico< T extends Comparable< T > >
 	 * @return numero de elementos presentes en el arreglo (posiciones no-null)
 	 */
 	int actSize( );
+	
+	/**
+	 * Duplica el tamano de la estructura de datos cuando esta se llena
+	 */
+	public void increaseSize();
 
 	/**
 	 * Agrega el elemento de forma compacta al principio de la lista.
@@ -55,7 +60,7 @@ public interface IArregloDinamico< T extends Comparable< T > >
 	 * @throws ElementoNoExisteException si no hay elementos en el arreglo o no está inicializado.
 	 */
 	T removeLast( ) throws ElementoNoExisteException;
-	
+
 	/**
 	 * Elimina el elemento con la posicion que ingresa por parametro.
 	 * Los datos restantes deben quedar "compactos" desde la posicion 0.
@@ -74,14 +79,14 @@ public interface IArregloDinamico< T extends Comparable< T > >
 	 * @throws ElementoNoExisteException si el elemento a eliminar es inválido, no está en el arreglo, no hay elementos en el arreglo o no esta inicializado
 	 */
 	T deleteElement( T element ) throws ElementoNoExisteException;
-	
+
 	/**
 	 * Retorna el primer elemento del arreglo.
 	 * @return primer elemento del arreglo.
 	 * @throws ElementoNoExisteException si no hay elementos en el arreglo o no está inicializado.
 	 */
 	T firstElement( ) throws ElementoNoExisteException;
-	
+
 	/**
 	 * Retorna el ultimo elemento del arreglo.
 	 * @return ultimo elemento del arreglo.
@@ -97,7 +102,7 @@ public interface IArregloDinamico< T extends Comparable< T > >
 	 * @throws ElementoNoExisteException si no hay elementos en el arreglo o no está inicializado.
 	 */
 	T getElementPos( int i ) throws ElementoNoExisteException, IndiceInvalidoException;
-	
+
 	/**
 	 * Buscar un dato en el arreglo.
 	 * @param dato Objeto de busqueda en el arreglo
@@ -105,13 +110,13 @@ public interface IArregloDinamico< T extends Comparable< T > >
 	 * @throws ElementoNoExisteException si el elemento a buscado es inválido, no está en el arreglo, no hay elementos en el arreglo o no esta inicializado
 	 */
 	T getElement(T dato) throws ElementoNoExisteException;
-	
+
 	/**
 	 * Retorna si el arreglo tiene o no elementos.
 	 * @return true si no hay elementos en el arreglo, false de lo contrario.
 	 */
 	boolean isEmpty( );
-	
+
 	/**
 	 * Retorna la posicion del elemento que ingresa por parametros.
 	 * @param element el elemento a analizar.
@@ -119,7 +124,7 @@ public interface IArregloDinamico< T extends Comparable< T > >
 	 * @throws ElementoNoExisteException si el elemento a buscado es inválido, no está en el arreglo, no hay elementos en el arreglo o no esta inicializado
 	 */
 	public int isPresent( T element ) throws ElementoNoExisteException;
-	
+
 	/**
 	 * Intercambia la informacion de los elementos en dos posiciones validas
 	 * @param pos1 la posicion del elemento 1.
@@ -128,7 +133,7 @@ public interface IArregloDinamico< T extends Comparable< T > >
 	 * @throws ElementoNoExisteException si no hay al menos dos elementos en el arreglo o no esta inicializado
 	 */
 	public void exchange( int pos1, int pos2 ) throws ElementoNoExisteException, IndiceInvalidoException;
-	
+
 	/**
 	 * Actualiza la informacion en una posicion valida.
 	 * @param pos. La posicion donde se quiere actualizar la informacion.

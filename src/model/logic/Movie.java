@@ -2,11 +2,12 @@ package model.logic;
 
 import java.util.Date;
 
-import com.opencsv.bean.CsvBindByName;
-import com.opencsv.bean.CsvDate;
-
-public class Movie
+/**
+ * Clase que modela una pelicula
+ */
+public class Movie implements Comparable<Movie> 
 {
+
 	private int id;
 	private int budget;
 	private String genres;
@@ -47,7 +48,50 @@ public class Movie
 	private int producerNumber;
 	private String screenplayName;
 	private String editorName;
-	
+
+	/**
+	 * Construye una nueva pelicula a partir de los parametros
+	 * @param id
+	 * @param budget
+	 * @param genres
+	 * @param imdbID
+	 * @param originalLanguage
+	 * @param originalTitle
+	 * @param overview
+	 * @param popularity
+	 * @param productionCompanies
+	 * @param productionCountries
+	 * @param releaseDate
+	 * @param revenue
+	 * @param runtime
+	 * @param spokenLanguages
+	 * @param status
+	 * @param tagline
+	 * @param title
+	 * @param voteAverage
+	 * @param voteCount
+	 * @param productionCompaniesNumber
+	 * @param productionCountriesNumber
+	 * @param spokenLanguagesNumber
+	 * @param actor1Name
+	 * @param actor1Gender
+	 * @param actor2Name
+	 * @param actor2Gender
+	 * @param actor3Name
+	 * @param actor3Gender
+	 * @param actor4Name
+	 * @param actor4Gender
+	 * @param actor5Name
+	 * @param actor5Gender
+	 * @param actorNumber
+	 * @param directorName
+	 * @param directorGender
+	 * @param directorNumber
+	 * @param producerName
+	 * @param producerNumber
+	 * @param screenplayName
+	 * @param editorName
+	 */
 	public Movie( int id, int budget, String genres, String imdbID, String originalLanguage, String originalTitle, String overview, double popularity, String productionCompanies, String productionCountries, Date releaseDate, int revenue, int runtime, String spokenLanguages, String status, String tagline, String title, double voteAverage, double voteCount, int productionCompaniesNumber, int productionCountriesNumber, int spokenLanguagesNumber, String actor1Name, int actor1Gender, String actor2Name, int actor2Gender, String actor3Name, int actor3Gender, String actor4Name, int actor4Gender, String actor5Name, int actor5Gender, int actorNumber, String directorName, int directorGender, int directorNumber, String producerName, int producerNumber, String screenplayName, String editorName )
 	{
 		this.id = id;
@@ -90,6 +134,21 @@ public class Movie
 		this.producerNumber = producerNumber;
 		this.screenplayName = screenplayName;
 		this.editorName = editorName;
+	}
+
+
+	@Override
+	/**
+	 * @return 0 if popularities are equal, 1 if this.popularity > o.popularity, -1 if this.popularity < o.popularity
+	 */
+	public int compareTo(Movie o) 
+	{
+		if( this.popularity > o.popularity )
+			return 1;
+		else if( this.popularity < o.popularity )
+			return -1;
+		else
+			return 0;
 	}
 
 	/**

@@ -1,5 +1,10 @@
 package controller;
 
+import java.util.Scanner;
+
+import model.data_structures.ElementoNoExisteException;
+import model.data_structures.IndiceInvalidoException;
+import model.logic.CargaDatosException;
 import model.logic.Modelo;
 import view.View;
 
@@ -22,111 +27,68 @@ public class Controller
 		modelo = new Modelo( );
 	}
 
-//	public void run() 
-//	{
-//		Scanner lector = new Scanner(System.in);
-//		boolean fin = false;
-//		Integer dato;
-//		// TODO OJO, no se debe inicializar así / JAVIER RAMIREZ / 21-08-2020
-//		Integer respuesta = 0;
-//
-//		while( !fin )
-//		{
-//			view.printMenu();
-//
-//			int option = lector.nextInt();
-//			switch(option){
-//			case 1:
-//				view.printMessage("--------- \nCrear Arreglo \nDar capacidad inicial del arreglo: ");
-//				int capacidad = lector.nextInt();
-//				try
-//				{
-//					modelo = new Modelo(capacidad);
-//					view.printMessage("Arreglo Dinamico creado");
-//					view.printMessage("Numero actual de elementos " + modelo.actSize( ) + "\n---------");	
-//				}
-//				catch( IndiceInvalidoException IIE )
-//				{
-//					view.printMessage( IIE.getMessage( ) );
-//				}
-//				break;
-//
-//			case 2:
-//				view.printMessage("--------- \nDar cadena (simple) a ingresar: ");
-//				dato = lector.nextInt();
-//				try 
-//				{
-//					modelo.addFirst( dato );
-//				} 
-//				catch (ElementoNoExisteException ENEE) 
-//				{
-//					ENEE.printStackTrace();
-//				}
-//				view.printMessage("Dato agregado");
-//				view.printMessage("Numero actual de elementos " + modelo.actSize( ) + "\n---------");						
-//				break;
-//
-//			case 3:
-//				view.printMessage("--------- \nDar cadena (simple) a buscar: ");
-//				dato = lector.nextInt();
-//				try
-//				{
-//					respuesta = ( Integer ) modelo.getElement(dato);
-//				}
-//				catch( ElementoNoExisteException ENEE )
-//				{
-//					ENEE.printStackTrace( );
-//				}
-//				if ( respuesta != null)
-//				{
-//					view.printMessage("Dato encontrado: "+ respuesta);
-//				}
-//				else
-//				{
-//					view.printMessage("Dato NO encontrado");
-//				}
-//				view.printMessage("Numero actual de elementos " + modelo.actSize( ) + "\n---------");						
-//				break;
-//
-//			case 4:
-//				view.printMessage("--------- \nDar cadena (simple) a eliminar: ");
-//				dato = lector.nextInt();
-//				try 
-//				{
-//					respuesta = ( Integer ) modelo.deleteElement(dato);
-//				}
-//				catch (ElementoNoExisteException ENEE) 
-//				{
-//					ENEE.printStackTrace();
-//				}
-//				if ( respuesta != null)
-//				{
-//					view.printMessage("Dato eliminado "+ respuesta);
-//				}
-//				else
-//				{
-//					view.printMessage("Dato NO eliminado");							
-//				}
-//				view.printMessage("Numero actual de elementos " + modelo.actSize() + "\n---------");						
-//				break;
-//
-//			case 5: 
-//				view.printMessage("--------- \nContenido del Arreglo: ");
-//				view.printModelo(modelo);
-//				view.printMessage("Numero actual de elementos " + modelo.actSize( ) + "\n---------");						
-//				break;	
-//
-//			case 6: 
-//				view.printMessage("--------- \n Hasta pronto !! \n---------"); 
-//				lector.close();
-//				fin = true;
-//				break;	
-//
-//			default: 
-//				view.printMessage("--------- \n Opcion Invalida !! \n---------");
-//				break;
-//			}
-//		}
-//
-//	}	
+	/**
+	 * Metodo que maneja las entradas del usuario en la aplicacion, conecta al usuario con la logica de la aplicacion
+	 */
+	public void run() 
+	{
+		Scanner lector = new Scanner( System.in );
+		boolean fin = false;
+		while( !fin )
+		{
+			view.printMenu( );
+
+			int opcion = lector.nextInt( );
+			switch( opcion )
+			{
+			case 1:
+				view.printMessage("--------- \nCrear Arreglo \nDar capacidad inicial del arreglo: ");
+				int capacidad = lector.nextInt();
+				try
+				{
+					modelo = new Modelo( capacidad );
+					view.printMessage("Arreglo Dinamico creado");
+					view.printMessage("Numero actual de elementos " + modelo.actSize( ) + "\n---------");
+					modelo.cargaDatos( );
+					view.printMessage("Carga de peliculas exitosa" + "\n---------");	
+					view.printMessage("Primera pelicula importada: " + "\nID: " + modelo.getFirstMovie( ).getId( ) + "\nTitle: " + modelo.getFirstMovie( ).getTitle( )  + "\nDirector: " + modelo.getFirstMovie( ).getDirectorName( )  + "\nPopularity: " + modelo.getFirstMovie( ).getPopularity( ) + "\n---------");
+					view.printMessage("Ultima pelicula importada: " + "\nID: " + modelo.getLastMovie( ).getId( ) + "\nTitle: " + modelo.getLastMovie( ).getTitle( ) + "\nDirector: " + modelo.getLastMovie( ).getDirectorName( ) + "\nPopularity: " + modelo.getLastMovie( ).getPopularity( ) + "\n---------");
+					view.printMessage("Numero de peliculas encontradas en las fuentes: " + modelo.actSize( ) + "\n---------" );
+				}
+				catch( IndiceInvalidoException IIE )
+				{
+					view.printMessage( IIE.getMessage( ) );
+				}
+				catch( CargaDatosException CCE )
+				{
+					view.printMessage( CCE.getMessage( ) );
+				}
+				catch( ElementoNoExisteException ENEE )
+				{
+					view.printMessage( ENEE.getMessage( ) );
+				}
+				break;
+			case 2:
+				view.printMessage("--------- \nEncontrar Buenas Peliculas de un Director \nDar nombre del Director, cambie los espacios por rayas al piso '_': ");
+				String nombreDirectorOriginal = lector.next( );
+				try
+				{
+					modelo.buenasPeliculasDirector( nombreDirectorOriginal.replace('_', ' '), view );
+				}
+				catch( Exception e )
+				{
+					view.printMessage( e.getMessage( ) );
+				}
+				break;
+			case 3: 
+				view.printMessage("--------- \n Hasta pronto !! \n---------"); 
+				lector.close();
+				fin = true;
+				break;	
+			default: 
+				view.printMessage("--------- \n Opcion Invalida !! \n---------");
+				break;
+			}
+		}
+	}
 }
