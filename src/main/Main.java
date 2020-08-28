@@ -1,6 +1,6 @@
 package main;
 import controller.Controller;
-import model.logic.Modelo;
+import model.logic.Model;
 
 public class Main 
 {
@@ -12,7 +12,7 @@ public class Main
 	@SuppressWarnings("unused")
 	public static void main(String[] args) 
 	{
-		Modelo modelo = new Modelo( );
+		Model model = new Model( );
 		Controller controler = new Controller( );
 		controler.run( );
 	}

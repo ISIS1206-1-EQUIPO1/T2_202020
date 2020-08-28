@@ -7,7 +7,6 @@ import java.util.Date;
  */
 public class Movie implements Comparable<Movie> 
 {
-
 	private int id;
 	private int budget;
 	private String genres;
@@ -139,13 +138,13 @@ public class Movie implements Comparable<Movie>
 
 	@Override
 	/**
-	 * @return 0 if popularities are equal, 1 if this.popularity > o.popularity, -1 if this.popularity < o.popularity
+	 * @return 0 if movies are the same object, 1 if this.id > o.id, -1 if this.id < o.id
 	 */
 	public int compareTo(Movie o) 
 	{
-		if( this.popularity > o.popularity )
+		if( this.id > o.id )
 			return 1;
-		else if( this.popularity < o.popularity )
+		else if( this.id < o.id )
 			return -1;
 		else
 			return 0;
@@ -313,7 +312,7 @@ public class Movie implements Comparable<Movie>
 	}
 
 	/**
-	 * @param renevue the renevue to set
+	 * @param renevue the revenue to set
 	 */
 	public void setRevenue(int revenue) {
 		this.revenue = revenue;

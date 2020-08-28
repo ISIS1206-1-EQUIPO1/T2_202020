@@ -2,17 +2,17 @@ package controller;
 
 import java.util.Scanner;
 
-import model.data_structures.ElementoNoExisteException;
-import model.data_structures.IndiceInvalidoException;
-import model.logic.CargaDatosException;
-import model.logic.Modelo;
+import model.data_structures.ElementNotFoundException;
+import model.data_structures.InvalidIndexException;
+import model.logic.DataLoadException;
+import model.logic.Model;
 import view.View;
 
 public class Controller 
 {
 
 	/* Instancia del Modelo*/
-	private Modelo modelo;
+	private Model model;
 
 	/* Instancia de la Vista*/
 	private View view;
@@ -24,7 +24,7 @@ public class Controller
 	public Controller ()
 	{
 		view = new View( );
-		modelo = new Modelo( );
+		model = new Model( );
 	}
 
 	/**
@@ -46,24 +46,24 @@ public class Controller
 				int capacidad = lector.nextInt();
 				try
 				{
-					modelo = new Modelo( capacidad );
+					model = new Model( capacidad );
 					view.printMessage("Arreglo Dinamico creado");
-					view.printMessage("Numero actual de elementos " + modelo.actSize( ) + "\n---------");
-					modelo.cargaDatos( );
+					view.printMessage("Numero actual de elementos " + model.actSize( ) + "\n---------");
+					model.dataLoad( );
 					view.printMessage("Carga de peliculas exitosa" + "\n---------");	
-					view.printMessage("Primera pelicula importada: " + "\nID: " + modelo.getFirstMovie( ).getId( ) + "\nTitle: " + modelo.getFirstMovie( ).getTitle( )  + "\nDirector: " + modelo.getFirstMovie( ).getDirectorName( )  + "\nPopularity: " + modelo.getFirstMovie( ).getPopularity( ) + "\n---------");
-					view.printMessage("Ultima pelicula importada: " + "\nID: " + modelo.getLastMovie( ).getId( ) + "\nTitle: " + modelo.getLastMovie( ).getTitle( ) + "\nDirector: " + modelo.getLastMovie( ).getDirectorName( ) + "\nPopularity: " + modelo.getLastMovie( ).getPopularity( ) + "\n---------");
-					view.printMessage("Numero de peliculas encontradas en las fuentes: " + modelo.actSize( ) + "\n---------" );
+					view.printMessage("Primera pelicula importada: " + "\nID: " + model.getFirstMovie( ).getId( ) + "\nTitle: " + model.getFirstMovie( ).getTitle( )  + "\nDirector: " + model.getFirstMovie( ).getDirectorName( )  + "\nPopularity: " + model.getFirstMovie( ).getPopularity( ) + "\n---------");
+					view.printMessage("Ultima pelicula importada: " + "\nID: " + model.getLastMovie( ).getId( ) + "\nTitle: " + model.getLastMovie( ).getTitle( ) + "\nDirector: " + model.getLastMovie( ).getDirectorName( ) + "\nPopularity: " + model.getLastMovie( ).getPopularity( ) + "\n---------");
+					view.printMessage("Numero de peliculas encontradas en las fuentes: " + model.actSize( ) + "\n---------" );
 				}
-				catch( IndiceInvalidoException IIE )
+				catch( InvalidIndexException IIE )
 				{
 					view.printMessage( IIE.getMessage( ) );
 				}
-				catch( CargaDatosException CCE )
+				catch( DataLoadException CCE )
 				{
 					view.printMessage( CCE.getMessage( ) );
 				}
-				catch( ElementoNoExisteException ENEE )
+				catch( ElementNotFoundException ENEE )
 				{
 					view.printMessage( ENEE.getMessage( ) );
 				}
@@ -73,7 +73,7 @@ public class Controller
 				String nombreDirectorOriginal = lector.next( );
 				try
 				{
-					modelo.buenasPeliculasDirector( nombreDirectorOriginal.replace('_', ' '), view );
+					model.buenasPeliculasDirector( nombreDirectorOriginal.replace('_', ' '), view );
 				}
 				catch( Exception e )
 				{

@@ -4,9 +4,9 @@ package model.data_structures;
 /**
  * Se arroja esta excepcion si el elemento que se intenta acceder no existe
  */
-public class ElementoNoExisteException extends Exception 
+public class ElementNotFoundException extends Exception 
 {
-	public ElementoNoExisteException( String pMsg )
+	public ElementNotFoundException( String pMsg )
 	{
 		super( pMsg );
 	}

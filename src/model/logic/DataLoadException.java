@@ -4,9 +4,9 @@ package model.logic;
 /**
  * Se arroja esta excepcion si hay problemas al cargar los datos del archivo .csv.
  */
-public class CargaDatosException extends Exception 
+public class DataLoadException extends Exception 
 {
-	public CargaDatosException( String pMsg )
+	public DataLoadException( String pMsg )
 	{
 		super( pMsg );
 	}

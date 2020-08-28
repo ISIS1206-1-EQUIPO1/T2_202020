@@ -23,33 +23,33 @@ import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.CsvToBeanBuilder;
 import com.opencsv.exceptions.CsvException;
 
-import model.data_structures.ArregloDinamico;
-import model.data_structures.ElementoNoExisteException;
-import model.data_structures.IArregloDinamico;
-import model.data_structures.IndiceInvalidoException;
+import model.data_structures.DynamicArray;
+import model.data_structures.ElementNotFoundException;
+import model.data_structures.IDataStructure;
+import model.data_structures.InvalidIndexException;
 import view.View;
 /**
  * Definicion del modelo del mundo
  *
  */
-public class Modelo
+public class Model
 {
 	/**
 	 * Atributos del modelo del mundo
 	 */
-	private IArregloDinamico datos;
+	private DynamicArray data;
 
 	/**
 	 * Constructor del modelo del mundo con capacidad predefinida
 	 * @throws IOException 
 	 */
-	public Modelo( )
+	public Model( )
 	{
 		try
 		{
-			datos = new ArregloDinamico ( 5 );
+			data = new DynamicArray ( 5 );
 		}
-		catch( IndiceInvalidoException IIE )
+		catch( InvalidIndexException IIE )
 		{
 			// No deberia pasar por aca
 			System.out.println( "IIE" );
@@ -61,16 +61,16 @@ public class Modelo
 	 * Constructor del modelo del mundo con capacidad dada
 	 * @param tamano
 	 */
-	public Modelo( int capacidad ) throws IndiceInvalidoException
+	public Model( int size ) throws InvalidIndexException
 	{
-		datos = new ArregloDinamico(capacidad);
+		data = new DynamicArray( size );
 	}
 
 	/**
 	 * Carga los datos desde los archivos .csv que se encuentran en la carpeta data del proyecto
-	 * @throws CargaDatosException si hay problemas al cargar los datos.
+	 * @throws DataLoadException si hay problemas al cargar los datos.
 	 */
-	public void cargaDatos( ) throws CargaDatosException
+	public void dataLoad( ) throws DataLoadException
 	{
 		try
 		{
@@ -119,20 +119,20 @@ public class Modelo
 				else if( details[ 10 + i ].equals( sdta ) )
 					date = sdta.parse( details[ 10 + i ] );
 				Movie m = new Movie( Integer.parseInt( details[ 0 ] ), budget, details[ 2 ], details[ 3 ], details[ 4 ], details[ 5 ], details[ 6 ], popularity, details[ 8 + i ], details[ 9 + i ], date, Integer.parseInt( details[ 11 + i ] ), Integer.parseInt( details[ 12 + i ] ), details[ 13 + i ], details[ 14 + i ], details[ 15 + i ], details[ 16 + i + k ], Double.parseDouble( details[ 17 + i + k ] ), Integer.parseInt( details[ 18 + i + k ] ), Integer.parseInt( details[ 19 + i + k ] ), Integer.parseInt( details[ 20 + i + k ] ), Integer.parseInt( details[ 21 + i + k ] ), casting[ 1 ], Integer.parseInt( casting[ 2 ] ), casting[ 3 ], Integer.parseInt( casting[ 4 ] ), casting[ 5 ], Integer.parseInt( casting[ 6 ] ), casting[ 7 ], Integer.parseInt( casting[ 8 ] ), casting[ 9 ], Integer.parseInt( casting[ 10 ] ), Integer.parseInt( casting[ 11 ] ), casting[ 12 ], Integer.parseInt( casting[ 13 ] ), Integer.parseInt( casting[ 14 ] ), casting[ 15 ], Integer.parseInt( casting[ 16 ] ), casting[ 17 ], casting[ 18 ] );
-				datos.addLast( m );
+				data.addLast( m );
 			}
 		}
 		catch( FileNotFoundException FNFE )
 		{
-			throw new CargaDatosException( "No se encontro el archivo .csv para cargar los datos." );
+			throw new DataLoadException( "No se encontro el archivo .csv para cargar los datos." );
 		}
 		catch( ParseException PE )
 		{
-			throw new CargaDatosException( "Error al convertir el String de fecha en formato Date." );
+			throw new DataLoadException( "Error al convertir el String de fecha en formato Date." );
 		} 
-		catch (ElementoNoExisteException e) 
+		catch (ElementNotFoundException e) 
 		{
-			throw new CargaDatosException( "Error al agregar elementos al Arreglo Dinamico." );
+			throw new DataLoadException( "Error al agregar elementos al Arreglo Dinamico." );
 		}
 	}
 
@@ -150,9 +150,9 @@ public class Modelo
 		int peliculasDirector = 0;
 		int peliculasBuenasDirector = 0;
 		double sumaPuntajes = 0;
-		for( int i = 1; i <= datos.actSize( ); i++ )
+		for( int i = 1; i <= data.actSize( ); i++ )
 		{
-			Movie m = ( Movie ) datos.getElementPos( i );
+			Movie m = ( Movie ) data.getElementPos( i );
 			if( m.getDirectorName( ).equals( director ) )
 			{
 				peliculasDirector++;
@@ -180,26 +180,26 @@ public class Modelo
 	 */
 	public int actSize()
 	{
-		return datos.actSize();
+		return data.actSize();
 	}
 
 	/**
 	 * Retorna la primera pelicula del ArregloDinamico.
 	 * @return la primera pelicula del arreglo dinamico.
-	 * @throws ElementoNoExisteException si la lista esta vacia.
+	 * @throws ElementNotFoundException si la lista esta vacia.
 	 */
-	public Movie getFirstMovie( ) throws ElementoNoExisteException
+	public Movie getFirstMovie( ) throws ElementNotFoundException
 	{
-		return (Movie) datos.firstElement( );
+		return (Movie) data.firstElement( );
 	}
 
 	/**
 	 * Retorna la ultima pelicula del ArregloDinamico.
 	 * @return la ultima pelicula del arreglo dinamico.
-	 * @throws ElementoNoExisteException  si la lista esta vacia.
+	 * @throws ElementNotFoundException  si la lista esta vacia.
 	 */
-	public Movie getLastMovie( ) throws ElementoNoExisteException
+	public Movie getLastMovie( ) throws ElementNotFoundException
 	{
-		return (Movie) datos.lastElement( );
+		return (Movie) data.lastElement( );
 	}
 }

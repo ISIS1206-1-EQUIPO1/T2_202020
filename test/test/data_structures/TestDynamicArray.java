@@ -6,17 +6,17 @@ import static org.junit.Assert.fail;
 import org.junit.Before;
 import org.junit.Test;
 
-import model.data_structures.ArregloDinamico;
-import model.data_structures.ElementoNoExisteException;
-import model.data_structures.IArregloDinamico;
-import model.data_structures.IndiceInvalidoException;
+import model.data_structures.DynamicArray;
+import model.data_structures.ElementNotFoundException;
+import model.data_structures.IDataStructure;
+import model.data_structures.InvalidIndexException;
 
 /**
  * Clase de prueba para la clase ArregloDinamico
  */
-public class TestArregloDinamico 
+public class TestDynamicArray
 {
-	private IArregloDinamico <String>arreglo;
+	private DynamicArray <String>arreglo;
 	private static int TAMANO=5;
 
 	@Before
@@ -24,16 +24,16 @@ public class TestArregloDinamico
 	{
 		try 
 		{
-			arreglo = new ArregloDinamico <String>(TAMANO);
+			arreglo = new DynamicArray <String>(TAMANO);
 			arreglo.addLast( "hola" );
 			arreglo.addLast( "como" );
 			arreglo.addLast( "vas" );
 		}
-		catch (IndiceInvalidoException e) 
+		catch (InvalidIndexException e) 
 		{
 			e.printStackTrace();
 		}
-		catch( ElementoNoExisteException ENEE )
+		catch( ElementNotFoundException ENEE )
 		{
 
 		}
@@ -45,10 +45,10 @@ public class TestArregloDinamico
 		// TODO
 		try
 		{
-			arreglo = new ArregloDinamico <String>( -20 );
+			arreglo = new DynamicArray <String>( -20 );
 			fail( );
 		}
-		catch( IndiceInvalidoException e )
+		catch( InvalidIndexException e )
 		{
 			// Exito
 		}
@@ -69,10 +69,10 @@ public class TestArregloDinamico
 		try {
 			s = ( String ) arreglo.getElementPos( 3 );
 			assertTrue( s.equals("vas"));
-		} catch (ElementoNoExisteException e) {
+		} catch (ElementNotFoundException e) {
 			// TODO Auto-generated catch block
 			fail();
-		} catch (IndiceInvalidoException e) {
+		} catch (InvalidIndexException e) {
 			// TODO Auto-generated catch block
 			fail();
 		}
