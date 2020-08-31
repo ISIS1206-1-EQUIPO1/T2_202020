@@ -2,7 +2,7 @@ package model.data_structures;
 
 public class ShellSort 
 {
-	public static void sort( IDataStructure a )
+	public static void sort( IDataStructure a ) throws ElementNotFoundException, InvalidIndexException
 	{
 		int N = a.actSize( );
 		int h = 1;
@@ -12,7 +12,7 @@ public class ShellSort
 		{
 			for( int i = h; i < N; i++ )
 			{
-				for( int j = i; j >= h && less( a.getElementPos( j + 1 ), a.getElementPos( j - h + 1 ) ); j -= h )
+				for( int j = i; j >= h && less( a.getElementPos( j ), a.getElementPos( j - h ) ); j -= h )
 					exch( a, j, j - h );
 			}
 			h = h / 3;
@@ -26,6 +26,12 @@ public class ShellSort
 	
 	private static void exch( IDataStructure a, int i, int j )
 	{
-		a.exchange( i + 1, j + 1 );
+		try {
+			a.exchange( i , j  );
+		} catch (ElementNotFoundException e) {
+			e.printStackTrace();
+		} catch (InvalidIndexException e) {
+			e.printStackTrace();
+		}
 	}
 }

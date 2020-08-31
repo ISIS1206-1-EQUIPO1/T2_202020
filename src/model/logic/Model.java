@@ -9,6 +9,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
@@ -28,6 +29,8 @@ import model.data_structures.DynamicArray;
 import model.data_structures.ElementNotFoundException;
 import model.data_structures.IDataStructure;
 import model.data_structures.InvalidIndexException;
+import model.data_structures.LinkedList;
+import model.data_structures.ShellSort;
 import view.View;
 /**
  * Definicion del modelo del mundo
@@ -39,7 +42,11 @@ public class Model
 	 * Atributos del modelo del mundo
 	 */
 	private DynamicArray data;
+	
+	private LinkedList listaEncadenada;
 
+	private ShellSort claseShell;
+	
 	/**
 	 * Constructor del modelo del mundo con capacidad predefinida
 	 * @throws DataLoadException 
@@ -194,6 +201,17 @@ public class Model
 			throw new Exception( "Se encontraron " + peliculasDirector + " peliculas del director " + director + " pero ninguna con popularity >= 6." + "\n---------");
 		v.printMessage( "El número de peliculas buenas del director " + director + " es " + peliculasBuenasDirector + ".");
 		v.printMessage( "El promedio de popularity de las peliculas buenas del director " + director + " es " + sumaPuntajes/peliculasBuenasDirector + ".\n---------");
+	}
+	
+	//ESTO DSE PUEDE HACER??? 
+	public ArrayList<String> peliculasPeorPromedio()
+	{
+		
+		claseShell.sort(listaEncadenada);
+		
+		
+		
+		return 
 	}
 
 	/**
