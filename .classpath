@@ -13,5 +13,6 @@
 	<classpathentry kind="lib" path="C:/Users/javie/Talleres/T1_202020/commons-collections4-4.4.jar"/>
 	<classpathentry kind="lib" path="C:/Users/javie/Talleres/T1_202020/commons-logging-1.2.jar"/>
 	<classpathentry kind="lib" path="C:/Users/javie/Talleres/T1_202020/commons-beanutils-1.9.4.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
