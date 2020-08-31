@@ -42,13 +42,15 @@ public class Model
 
 	/**
 	 * Constructor del modelo del mundo con capacidad predefinida
+	 * @throws DataLoadException 
 	 * @throws IOException 
 	 */
-	public Model( )
+	public Model( ) throws DataLoadException
 	{
 		try
 		{
 			data = new DynamicArray ( 5 );
+			dataLoad( );
 		}
 		catch( InvalidIndexException IIE )
 		{
@@ -73,7 +75,7 @@ public class Model
 	 * @throws IOException 
 	 * @throws CsvValidationException 
 	 */
-	public void dataLoad( ) throws DataLoadException, CsvValidationException, IOException
+	public void dataLoad( ) throws DataLoadException
 	{
 		try
 		{
@@ -125,24 +127,34 @@ public class Model
 //				data.addLast( m );
 //			}
 			CSVParser parser = new CSVParserBuilder().withSeparator(';').build( );
-			CSVReader reader = new CSVReaderBuilder( new FileReader( "./data/SmallMoviesDetailsCleaned.csv" )).withCSVParser( parser ).build( );
+			CSVReader readerDetails = new CSVReaderBuilder( new FileReader( "./data/SmallMoviesDetailsCleaned.csv" )).withCSVParser( parser ).withSkipLines( 1 ).build( );
+			CSVReader readerCasting = new CSVReaderBuilder( new FileReader( "./data/MoviesCastingRaw-small.csv" )).withCSVParser( parser ).withSkipLines( 1 ).build( );
 			String[ ] nextLine;
-			while( (nextLine = reader.readNext()) != null )
+			while( (nextLine = readerDetails.readNext()) != null )
 			{
-				
+				System.out.println( nextLine[ 0 ] + "-" + nextLine[ 1 ] + "-" + nextLine[ 2 ] + "-" + nextLine[ 3 ] + "-" + nextLine[ 4 ] + "-" + nextLine[ 5 ] + "-" + nextLine[ 6 ] + "-" + nextLine[ 7 ] + "-" + nextLine[ 8 ] + "-" + nextLine[ 9 ] + "-" + nextLine[ 10 ] + "-" + nextLine[ 11 ] + "-" + nextLine[ 12 ] + "-" + nextLine[ 13 ] + "-" + nextLine[ 14 ] + "-" + nextLine[ 15 ] + "-" + nextLine[ 16 ] + "-" + nextLine[ 17 ] + "-" + nextLine[ 18 ] + "-" + nextLine[ 19 ] + "-" + nextLine[ 20 ] + "-" + nextLine[ 21 ] );
+				if( nextLine[ 0 ].equals( "1904" ) )
+					break;
 			}
 		}
 		catch( FileNotFoundException FNFE )
 		{
 			throw new DataLoadException( "No se encontro el archivo .csv para cargar los datos." );
 		}
-		catch( ParseException PE )
-		{
-			throw new DataLoadException( "Error al convertir el String de fecha en formato Date." );
-		} 
-		catch (ElementNotFoundException e) 
-		{
-			throw new DataLoadException( "Error al agregar elementos al Arreglo Dinamico." );
+//		catch( ParseException PE )
+//		{
+//			throw new DataLoadException( "Error al convertir el String de fecha en formato Date." );
+//		} 
+//		catch (ElementNotFoundException e) 
+//		{
+//			throw new DataLoadException( "Error al agregar elementos al Arreglo Dinamico." );
+//		}
+ catch (CsvValidationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 

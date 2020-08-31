@@ -1,5 +1,6 @@
 package model.logic;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -91,19 +92,30 @@ public class Movie implements Comparable<Movie>
 	 * @param screenplayName
 	 * @param editorName
 	 */
-	public Movie( int id, int budget, String genres, String imdbID, String originalLanguage, String originalTitle, String overview, double popularity, String productionCompanies, String productionCountries, Date releaseDate, int revenue, int runtime, String spokenLanguages, String status, String tagline, String title, double voteAverage, double voteCount, int productionCompaniesNumber, int productionCountriesNumber, int spokenLanguagesNumber, String actor1Name, int actor1Gender, String actor2Name, int actor2Gender, String actor3Name, int actor3Gender, String actor4Name, int actor4Gender, String actor5Name, int actor5Gender, int actorNumber, String directorName, int directorGender, int directorNumber, String producerName, int producerNumber, String screenplayName, String editorName )
+	public Movie( String id, String budget, String genres, String imdbID, String originalLanguage, String originalTitle, String overview, String popularity, String productionCompanies, String productionCountries, String releaseDate, String revenue, String runtime, String spokenLanguages, String status, String tagline, String title, String voteAverage, String voteCount, String productionCompaniesNumber, String productionCountriesNumber, String spokenLanguagesNumber, String actor1Name, String actor1Gender, String actor2Name, String actor2Gender, String actor3Name, String actor3Gender, String actor4Name, String actor4Gender, String actor5Name, String actor5Gender, String actorNumber, String directorName, String directorGender, String directorNumber, String producerName, String producerNumber, String screenplayName, String editorName )
 	{
-		this.id = id;
-		this.budget = budget;
+		this.id = Integer.parseInt( id );
+		this.budget = 0;
+		if( !budget.equals( "" ) )
+			this.budget = Integer.parseInt( budget );
 		this.genres = genres;
 		this.imdbID = imdbID;
 		this.originalLanguage = originalLanguage;
 		this.originalTitle = originalTitle;
 		this.overview = overview;
-		this.popularity = popularity;
+		this.popularity = 0;
+		if( !popularity.equals( "" ) )
+			this.popularity = Double.valueOf( popularity.replace( ',', '.') );
 		this.productionCompanies = productionCompanies;
 		this.productionCountries = productionCountries;
-		this.releaseDate = releaseDate;
+		this.releaseDate = null;
+		SimpleDateFormat sdtn = new SimpleDateFormat( "dd/MM/yyyy" );
+		SimpleDateFormat sdta = new SimpleDateFormat( "yyyy-MM-dd" );
+		if( releaseDate.equals( sdtn ) )
+			this.releaseDate = sdtn.parse( releaseDate );
+		else if( releaseDate.equals( sdta ) )
+			this.releaseDate = sdta.parse( releaseDate );
+
 		this.revenue = revenue;
 		this.runtime = runtime;
 		this.spokenLanguages = spokenLanguages;
