@@ -1,5 +1,6 @@
 package model.logic;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -94,57 +95,64 @@ public class Movie implements Comparable<Movie>
 	 */
 	public Movie( String id, String budget, String genres, String imdbID, String originalLanguage, String originalTitle, String overview, String popularity, String productionCompanies, String productionCountries, String releaseDate, String revenue, String runtime, String spokenLanguages, String status, String tagline, String title, String voteAverage, String voteCount, String productionCompaniesNumber, String productionCountriesNumber, String spokenLanguagesNumber, String actor1Name, String actor1Gender, String actor2Name, String actor2Gender, String actor3Name, String actor3Gender, String actor4Name, String actor4Gender, String actor5Name, String actor5Gender, String actorNumber, String directorName, String directorGender, String directorNumber, String producerName, String producerNumber, String screenplayName, String editorName )
 	{
-		this.id = Integer.parseInt( id );
-		this.budget = 0;
-		if( !budget.equals( "" ) )
-			this.budget = Integer.parseInt( budget );
-		this.genres = genres;
-		this.imdbID = imdbID;
-		this.originalLanguage = originalLanguage;
-		this.originalTitle = originalTitle;
-		this.overview = overview;
-		this.popularity = 0;
-		if( !popularity.equals( "" ) )
-			this.popularity = Double.valueOf( popularity.replace( ',', '.') );
-		this.productionCompanies = productionCompanies;
-		this.productionCountries = productionCountries;
-		this.releaseDate = null;
-		SimpleDateFormat sdtn = new SimpleDateFormat( "dd/MM/yyyy" );
-		SimpleDateFormat sdta = new SimpleDateFormat( "yyyy-MM-dd" );
-		if( releaseDate.equals( sdtn ) )
-			this.releaseDate = sdtn.parse( releaseDate );
-		else if( releaseDate.equals( sdta ) )
-			this.releaseDate = sdta.parse( releaseDate );
+		try
+		{
+			this.id = Integer.parseInt( id );
+			this.budget = 0;
+			if( !budget.equals( "" ) )
+				this.budget = Integer.parseInt( budget );
+			this.genres = genres;
+			this.imdbID = imdbID;
+			this.originalLanguage = originalLanguage;
+			this.originalTitle = originalTitle;
+			this.overview = overview;
+			this.popularity = 0;
+			if( !popularity.equals( "" ) )
+				this.popularity = Double.valueOf( popularity.replace( ',', '.') );
+			this.productionCompanies = productionCompanies;
+			this.productionCountries = productionCountries;
+			this.releaseDate = null;
+			SimpleDateFormat sdtn = new SimpleDateFormat( "dd/MM/yyyy" );
+			SimpleDateFormat sdta = new SimpleDateFormat( "yyyy-MM-dd" );
+			if( releaseDate.equals( sdtn ) )
+				this.releaseDate = sdtn.parse( releaseDate );
+			else if( releaseDate.equals( sdta ) )
+				this.releaseDate = sdta.parse( releaseDate );
 
-		this.revenue = revenue;
-		this.runtime = runtime;
-		this.spokenLanguages = spokenLanguages;
-		this.status = status;
-		this.tagline = tagline;
-		this.title = title;
-		this.voteAverage = voteAverage;
-		this.voteCount = voteCount;
-		this.productionCompaniesNumber = productionCompaniesNumber;
-		this.productionCountriesNumber = productionCountriesNumber;
-		this.spokenLanguagesNumber = spokenLanguagesNumber;
-		this.actor1Name = actor1Name;
-		this.actor1Gender = actor1Gender;
-		this.actor2Name = actor2Name;
-		this.actor2Gender = actor2Gender;
-		this.actor3Name = actor3Name;
-		this.actor3Gender = actor3Gender;
-		this.actor4Name = actor4Name;
-		this.actor4Gender = actor4Gender;
-		this.actor5Name = actor5Name;
-		this.actor5Gender = actor5Gender;
-		this.actorNumber = actorNumber;
-		this.directorName = directorName;
-		this.directorGender = directorGender;
-		this.directorNumber = directorNumber;
-		this.producerName = producerName;
-		this.producerNumber = producerNumber;
-		this.screenplayName = screenplayName;
-		this.editorName = editorName;
+			this.revenue = Integer.parseInt( revenue );
+			this.runtime = Integer.parseInt( runtime );
+			this.spokenLanguages = spokenLanguages;
+			this.status = status;
+			this.tagline = tagline;
+			this.title = title;
+			this.voteAverage = Double.valueOf( voteAverage );
+			this.voteCount = Double.valueOf( voteCount );
+			this.productionCompaniesNumber = Integer.parseInt( productionCompaniesNumber );
+			this.productionCountriesNumber = Integer.parseInt( productionCountriesNumber );
+			this.spokenLanguagesNumber = Integer.parseInt( spokenLanguagesNumber );
+			this.actor1Name = actor1Name;
+			this.actor1Gender = Integer.parseInt( actor1Gender );
+			this.actor2Name = actor2Name;
+			this.actor2Gender = Integer.parseInt( actor2Gender );
+			this.actor3Name = actor3Name;
+			this.actor3Gender = Integer.parseInt( actor3Gender );
+			this.actor4Name = actor4Name;
+			this.actor4Gender = Integer.parseInt( actor4Gender );
+			this.actor5Name = actor5Name;
+			this.actor5Gender = Integer.parseInt( actor5Gender );
+			this.actorNumber = Integer.parseInt( actorNumber );
+			this.directorName = directorName;
+			this.directorGender = Integer.parseInt( directorGender );
+			this.directorNumber = Integer.parseInt( directorNumber );
+			this.producerName = producerName;
+			this.producerNumber = Integer.parseInt( producerNumber );
+			this.screenplayName = screenplayName;
+			this.editorName = editorName;
+		}
+		catch( ParseException Pe )
+		{
+			Pe.printStackTrace( );
+		}
 	}
 
 
@@ -160,6 +168,23 @@ public class Movie implements Comparable<Movie>
 			return -1;
 		else
 			return 0;
+	}
+	
+	public int compareToVoteAverage( Movie o )
+	{
+		if( this.voteAverage > o.voteAverage )
+			return 1;
+		else if( this.voteAverage < o.voteAverage )
+			return -1;
+		else
+		{
+			if( this.id > o.id )
+				return 1;
+			else if( this.id < o.id )
+				return -1;
+			else
+				return 0;
+		}
 	}
 
 	/**

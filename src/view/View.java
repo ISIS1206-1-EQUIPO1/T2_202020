@@ -14,9 +14,10 @@ public class View
 	    
 		public void printMenu()
 		{
-			System.out.println("1. Cargar Datos");
-			System.out.println("2. Encontrar Buenas Peliculas de un Director");
-			System.out.println("3. Exit");
+			System.out.println("1. Cargar Datos a una Lista Encadenada.");
+			System.out.println("2. Cargar Datos a un Arreglo Dinamico.");
+			System.out.println("3. Encontrar las 20 peliculas con peor promedio de votacion.");
+			System.out.println("4. Exit");
 			System.out.println("Dar el numero de opcion a resolver, luego oprimir tecla Return: (e.g., 1):");
 		}
 
@@ -28,6 +29,6 @@ public class View
 		
 		public void printModelo(Model model)
 		{
-			// TODO implementar
+			
 		}
 }

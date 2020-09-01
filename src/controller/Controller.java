@@ -4,6 +4,7 @@ import java.util.Scanner;
 
 import model.data_structures.ElementNotFoundException;
 import model.data_structures.InvalidIndexException;
+import model.data_structures.ShellSortException;
 import model.logic.DataLoadException;
 import model.logic.Model;
 import view.View;
@@ -42,51 +43,85 @@ public class Controller
 			switch( opcion )
 			{
 			case 1:
-				view.printMessage("--------- \nCrear Arreglo \nDar capacidad inicial del arreglo: ");
-				int capacidad = lector.nextInt();
+				view.printMessage("--------- \nCargar Datos a una Lista Encadenada. \n");
 				try
 				{
-					model = new Model( capacidad );
-					view.printMessage("Arreglo Dinamico creado");
-					view.printMessage("Numero actual de elementos " + model.actSize( ) + "\n---------");
-					model.dataLoad( );
-					view.printMessage("Carga de peliculas exitosa" + "\n---------");	
-					view.printMessage("Primera pelicula importada: " + "\nID: " + model.getFirstMovie( ).getId( ) + "\nTitle: " + model.getFirstMovie( ).getTitle( )  + "\nDirector: " + model.getFirstMovie( ).getDirectorName( )  + "\nPopularity: " + model.getFirstMovie( ).getPopularity( ) + "\n---------");
-					view.printMessage("Ultima pelicula importada: " + "\nID: " + model.getLastMovie( ).getId( ) + "\nTitle: " + model.getLastMovie( ).getTitle( ) + "\nDirector: " + model.getLastMovie( ).getDirectorName( ) + "\nPopularity: " + model.getLastMovie( ).getPopularity( ) + "\n---------");
-					view.printMessage("Numero de peliculas encontradas en las fuentes: " + model.actSize( ) + "\n---------" );
+					model.dataLoad( 1 );
+					view.printMessage("Lista Enlazada creada.");
+					view.printMessage("Numero actual de elementos " + model.getLinkedList( ).actSize( ) + "\n---------");
+					view.printMessage("Carga de peliculas exitosa." + "\n---------");	
+					view.printMessage("Primera pelicula importada: " + "\nID: " + model.getLinkedList( ).firstElement( ).getId( ) + "\nTitle: " + model.getLinkedList( ).firstElement( ).getTitle( )  + "\nDirector: " + model.getLinkedList( ).firstElement( ).getDirectorName( )  + "\nPopularity: " + model.getLinkedList( ).firstElement( ).getPopularity( ) + "\n---------");
+					view.printMessage("Ultima pelicula importada: " + "\nID: " + model.getLinkedList( ).lastElement( ).getId( ) + "\nTitle: " + model.getLinkedList( ).lastElement( ).getTitle( )  + "\nDirector: " + model.getLinkedList( ).lastElement( ).getDirectorName( )  + "\nPopularity: " + model.getLinkedList( ).lastElement( ).getPopularity( ) + "\n---------");
+					view.printMessage("Numero de peliculas encontradas en las fuentes: " + model.getLinkedList( ).actSize( ) + "\n---------" );
 				}
-				catch( InvalidIndexException IIE )
+				catch( DataLoadException DLe )
 				{
-					view.printMessage( IIE.getMessage( ) );
-				}
-				catch( DataLoadException CCE )
+					view.printMessage( DLe.getMessage( ) );
+				} 
+				catch ( ElementNotFoundException ENFe ) 
 				{
-					view.printMessage( CCE.getMessage( ) );
-				}
-				catch( ElementNotFoundException ENEE )
-				{
-					view.printMessage( ENEE.getMessage( ) );
+					view.printMessage( ENFe.getMessage( ) );
 				}
 				break;
 			case 2:
-				view.printMessage("--------- \nEncontrar Buenas Peliculas de un Director \nDar nombre del Director, cambie los espacios por rayas al piso '_': ");
-				String nombreDirectorOriginal = lector.next( );
+				view.printMessage("--------- \nCargar Datos a un Arreglo Dinamico. \n");
 				try
 				{
-					model.buenasPeliculasDirector( nombreDirectorOriginal.replace('_', ' '), view );
+					model.dataLoad( 2 );
+					view.printMessage("Arreglo Dinamico creado.");
+					view.printMessage("Numero actual de elementos " + model.getDynamicArray( ).actSize( ) + "\n---------");
+					view.printMessage("Carga de peliculas exitosa" + "\n---------");	
+					view.printMessage("Primera pelicula importada: " + "\nID: " + model.getDynamicArray( ).firstElement( ).getId( ) + "\nTitle: " + model.getDynamicArray( ).firstElement( ).getTitle( )  + "\nDirector: " + model.getDynamicArray( ).firstElement( ).getDirectorName( )  + "\nPopularity: " + model.getDynamicArray( ).firstElement( ).getPopularity( ) + "\n---------");
+					view.printMessage("Ultima pelicula importada: " + "\nID: " + model.getDynamicArray( ).lastElement( ).getId( ) + "\nTitle: " + model.getDynamicArray( ).lastElement( ).getTitle( )  + "\nDirector: " + model.getDynamicArray( ).lastElement( ).getDirectorName( )  + "\nPopularity: " + model.getDynamicArray( ).lastElement( ).getPopularity( ) + "\n---------");
+					view.printMessage("Numero de peliculas encontradas en las fuentes: " + model.getDynamicArray( ).actSize( ) + "\n---------" );
 				}
-				catch( Exception e )
+				catch( DataLoadException DLe )
+				{
+					view.printMessage( DLe.getMessage( ) );
+				} 
+				catch ( ElementNotFoundException ENFe ) 
+				{
+					view.printMessage( ENFe.getMessage( ) );
+				}
+				break;
+			case 3:
+				view.printMessage("--------- \nEncontrar las 20 peliculas con peor promedio de votacion. \n");
+				try
+				{
+					model.shellSortPopularity( );
+					if( model.getLinkedList( ) != null )
+					{
+						for (int i = 1; i <= 20 ; i++ ) 
+						{
+							view.printMessage( i + ". " + "ID: " + model.getLinkedList( ).getElementPos( i ).getId( ) + " - Vote average: " + model.getLinkedList( ).getElementPos( i ).getVoteAverage( ) + " - Title: " + model.getLinkedList( ).getElementPos( i ).getTitle( ) + " - Genres: " + model.getLinkedList( ).getElementPos( i ).getGenres( ) );
+						}
+					}
+					else
+						for (int i = 1; i <= 20 ; i++ ) 
+						{
+							view.printMessage( i + ". " + "ID: " + model.getDynamicArray( ).getElementPos( i ).getId( ) + " - Vote average: " + model.getDynamicArray( ).getElementPos( i ).getVoteAverage( ) + " - Title: " + model.getDynamicArray( ).getElementPos( i ).getTitle( ) + " - Genres: " + model.getDynamicArray( ).getElementPos( i ).getGenres( ) );
+						}
+				}
+				catch( ShellSortException SSe )
+				{
+					view.printMessage( SSe.getMessage() );
+				}
+				catch( InvalidIndexException | ElementNotFoundException e )
 				{
 					view.printMessage( e.getMessage( ) );
 				}
+				finally
+				{
+					view.printMessage("\n---------");
+				}
 				break;
-			case 3: 
-				view.printMessage("--------- \n Hasta pronto !! \n---------"); 
+			case 4: 
+				view.printMessage("--------- \n ¡Hasta pronto! \n---------"); 
 				lector.close();
 				fin = true;
 				break;	
 			default: 
-				view.printMessage("--------- \n Opcion Invalida !! \n---------");
+				view.printMessage("--------- \n ¡Opcion Invalida! \n---------");
 				break;
 			}
 		}
