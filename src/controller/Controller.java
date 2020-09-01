@@ -47,7 +47,9 @@ public class Controller
 				view.printMessage("--------- \nCargar Datos a una Lista Encadenada. \n");
 				try
 				{
+					StopWatchNano timerNano = new StopWatchNano( );
 					model.dataLoad( 1 );
+					double time = timerNano.elapsedTime( );
 					view.printMessage("Lista Enlazada creada.");
 					view.printMessage("Numero actual de elementos " + model.getDataStructure( ).actSize( ) + "\n---------");
 					view.printMessage("Carga de peliculas exitosa." + "\n---------");	
@@ -55,7 +57,8 @@ public class Controller
 					Movie lastMovie = model.getDataStructure( ).lastElement( );
 					view.printMessage("Primera pelicula importada: " + "\nID: " + firstMovie.getId( ) + "\nTitle: " + firstMovie.getTitle( ) + "\nDirector: " + firstMovie.getDirectorName( )  + "\nPopularity: " + firstMovie.getPopularity( ) + "\n---------");
 					view.printMessage("Ultima pelicula importada: " + "\nID: " + lastMovie.getId( ) + "\nTitle: " + lastMovie.getTitle( ) + "\nDirector: " + lastMovie.getDirectorName( )  + "\nPopularity: " + lastMovie.getPopularity( ) + "\n---------");
-					view.printMessage("Numero de peliculas encontradas en las fuentes: " + model.getDataStructure( ).actSize( ) + "\n---------" );
+					view.printMessage("Numero de peliculas encontradas en las fuentes: " + model.getDataStructure( ).actSize( )  + "\n---------" );
+					view.printMessage("Tiempo de ejecucion en segundos de la carga en Lista Enlazada: " + time + "\n---------" );
 				}
 				catch( DataLoadException DLe )
 				{
@@ -74,7 +77,9 @@ public class Controller
 				view.printMessage("--------- \nCargar Datos a un Arreglo Dinamico. \n");
 				try
 				{
+					StopWatchNano timerNano = new StopWatchNano( );
 					model.dataLoad( 2 );
+					double time = timerNano.elapsedTime( );
 					view.printMessage("Arreglo Dinamico creado.");
 					view.printMessage("Numero actual de elementos " + model.getDataStructure( ).actSize( ) + "\n---------");
 					view.printMessage("Carga de peliculas exitosa." + "\n---------");	
@@ -83,6 +88,7 @@ public class Controller
 					view.printMessage("Primera pelicula importada: " + "\nID: " + firstMovie.getId( ) + "\nTitle: " + firstMovie.getTitle( ) + "\nDirector: " + firstMovie.getDirectorName( )  + "\nPopularity: " + firstMovie.getPopularity( ) + "\n---------");
 					view.printMessage("Ultima pelicula importada: " + "\nID: " + lastMovie.getId( ) + "\nTitle: " + lastMovie.getTitle( ) + "\nDirector: " + lastMovie.getDirectorName( )  + "\nPopularity: " + lastMovie.getPopularity( ) + "\n---------");
 					view.printMessage("Numero de peliculas encontradas en las fuentes: " + model.getDataStructure( ).actSize( ) + "\n---------" );
+					view.printMessage("Tiempo de ejecucion en segundos de la carga en Arreglo Dinamico: " + time + "\n---------" );
 				}
 				catch( DataLoadException DLe )
 				{
@@ -101,12 +107,19 @@ public class Controller
 				view.printMessage("--------- \nEncontrar las 20 peliculas con peor promedio de votacion. \n");
 				try
 				{
-					model.shellSortPopularity( );
-					for (int i = 1; i <= 20 ; i++ ) 
+					StopWatchNano timerNano = new StopWatchNano( );
+					model.shellSortVoteAverage( );
+					double time = timerNano.elapsedTime( );
+					for( int i = 1, j = 1; i <= model.getDataStructure( ).actSize( ) && j <= 20; i++ )
 					{
 						Movie actMovie = model.getDataStructure( ).getElementPos( i );
-						view.printMessage( i + ". " + "ID: " + actMovie.getId( ) + " - Vote average: " + actMovie.getVoteAverage( ) + " - Title: " + actMovie.getTitle( ) + " - Genres: " + actMovie.getGenres( ) );
+						if( actMovie.getVoteCount( ) > 0 )
+						{
+							view.printMessage( j + ". " + "ID: " + actMovie.getId( ) + " - Vote average: " + actMovie.getVoteAverage( ) + " - Title: " + actMovie.getTitle( ) + " - Genres: " + actMovie.getGenres( ) );
+							j++;
+						}
 					}
+					view.printMessage("\n---------\nTiempo de ejecucion en segundos del ordenamiento: " + time + "\n---------" );
 				}
 				catch( ShellSortException SSe )
 				{

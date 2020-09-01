@@ -1,9 +1,11 @@
 package model.data_structures;
+
 import model.logic.Movie;
 
 /**
  * Clase que se encarga del ordenamiento de una estructura de datos tipo IDataStructure.
  */
+@SuppressWarnings({ "rawtypes", "unchecked" })
 public class ShellSort 
 {
 	/**
@@ -43,9 +45,7 @@ public class ShellSort
 	 */
 	private static boolean less( Comparable v, Comparable w )
 	{
-		Movie m1 = ( Movie ) v;
-		Movie m2 = ( Movie ) w;
-		return m1.compareToVoteAverage( m2 ) < 0;
+		return v.compareTo( w ) < 0;
 	}
 	
 	/**

@@ -155,22 +155,20 @@ public class Movie implements Comparable<Movie>
 		}
 	}
 
-
-	@Override
-	/**
-	 * @return 0 if movies are the same object, 1 if this.id > o.id, -1 if this.id < o.id
-	 */
-	public int compareTo(Movie o) 
-	{
-		if( this.id > o.id )
-			return 1;
-		else if( this.id < o.id )
-			return -1;
-		else
-			return 0;
-	}
+//	/**
+//	 * @return 0 if movies are the same object, 1 if this.id > o.id, -1 if this.id < o.id
+//	 */
+//	public int compareTo(Movie o) 
+//	{
+//		if( this.id > o.id )
+//			return 1;
+//		else if( this.id < o.id )
+//			return -1;
+//		else
+//			return 0;
+//	}
 	
-	public int compareToVoteAverage( Movie o )
+	public int compareTo( Movie o )
 	{
 		if( this.voteAverage > o.voteAverage )
 			return 1;

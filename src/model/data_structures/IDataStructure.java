@@ -1,5 +1,8 @@
 package model.data_structures;
 
+/**
+ * Interface que modela las clases de estruturas de datos del programa.
+ */
 public interface IDataStructure< T extends Comparable< T > > 
 {
 	/**

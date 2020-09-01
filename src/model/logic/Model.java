@@ -1,28 +1,13 @@
 package model.logic;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.io.Reader;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Scanner;
 
 import com.opencsv.CSVParser;
 import com.opencsv.CSVParserBuilder;
 import com.opencsv.CSVReader;
 import com.opencsv.CSVReaderBuilder;
-import com.opencsv.bean.ColumnPositionMappingStrategy;
-import com.opencsv.bean.CsvToBean;
-import com.opencsv.bean.CsvToBeanBuilder;
-import com.opencsv.exceptions.CsvException;
 import com.opencsv.exceptions.CsvValidationException;
 
 import model.data_structures.DynamicArray;
@@ -32,7 +17,6 @@ import model.data_structures.InvalidIndexException;
 import model.data_structures.LinkedList;
 import model.data_structures.ShellSort;
 import model.data_structures.ShellSortException;
-import view.View;
 /**
  * Definicion del modelo del mundo
  *
@@ -43,8 +27,6 @@ public class Model
 	 * Atributos del modelo del mundo
 	 */
 	private IDataStructure<Movie> dataStructure;
-
-	private ShellSort shellSort;
 
 	/**
 	 * Constructor del modelo del mundo con capacidad predefinida
@@ -122,22 +104,13 @@ public class Model
 	}
 
 	/**
-	 * Retorna una referencia a la clase ShellSort que maneja los ordenamientos.
-	 * @return shellSort.
-	 */
-	public ShellSort getShellSort( ) 
-	{
-		return shellSort;
-	}
-
-	/**
 	 * Ordena la estructura de datos que se encuentra inicializada actualmente.
 	 * @throws ShellSortException si no hay ninguna estructura de datos inicializada para ordenar.
 	 */
-	public void shellSortPopularity( ) throws ShellSortException
+	public void shellSortVoteAverage( ) throws ShellSortException
 	{
 		if( dataStructure == null )
 			throw new ShellSortException( "No hay ninguna estructura de datos inicializada ni cargada." );
-		shellSort.sort( dataStructure );
+		ShellSort.sort( dataStructure );
 	}
 }
