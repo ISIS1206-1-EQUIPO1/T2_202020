@@ -5,22 +5,38 @@ public class LinkedList< T extends Comparable< T > > implements IDataStructure< 
 	private Node < T > header;
 	private int actSize;
 
+	/**
+	 * Crea una nueva lista encadenada sin ningun elemento
+	 */
 	public LinkedList ( )
 	{
 		header = null;
 	}
 
+	/**
+	 * Crea una nueva lista enlazada con un elemento que entra por parámetro como cabeza.
+	 * @param element. Elemento que será la cabeza de la lista.
+	 */
 	public LinkedList( T element )
 	{
 		header = new Node<>( element );
 		actSize = 1;
 	}
 
+	/**
+	 * Retornar el numero de elementos presentes en la lista enlazada.
+	 * @return numero de elementos presentes en la lista enlazada.
+	 */
 	public int actSize() 
 	{
 		return actSize;
 	}
 
+	/**
+	 * Agrega el elemento al principio de la lista.
+	 * @param element. Elemento a agregar
+	 * @throws ElementNotFoundException si el elemento a agregar es null.
+	 */
 	public void addFirst(T element) throws ElementNotFoundException 
 	{
 		if( element == null )
@@ -36,6 +52,11 @@ public class LinkedList< T extends Comparable< T > > implements IDataStructure< 
 		actSize++;
 	}
 
+	/**
+	 * Agrega el elemento al final de la lista.
+	 * @param element. Elemento a agregar
+	 * @throws ElementNotFoundException si el elemento a agregar es null.
+	 */
 	public void addLast(T element) throws ElementNotFoundException 
 	{
 		if( element == null )
@@ -53,6 +74,13 @@ public class LinkedList< T extends Comparable< T > > implements IDataStructure< 
 		actSize++;
 	}
 
+	/**
+	 * Agregar un dato en la posicion que ingresa por parámetro 
+	 * @param element. Elemento a agregar.
+	 * @param pos. Posicion donde se debe agregar el elemento. pos >= 1
+	 * @throws InvalidIndexException si la posición es menor a 1 o mayor al tamaño del arreglo.
+	 * @throws ElementNotFoundException si el elemento a agregar es null.
+	 */
 	public void insertElement(T element, int pos) throws ElementNotFoundException, InvalidIndexException 
 	{
 		if( element == null )
@@ -73,6 +101,12 @@ public class LinkedList< T extends Comparable< T > > implements IDataStructure< 
 		actSize++;
 	}
 
+	/**
+	 * Elimina el primer dato de la lista.
+	 * Los datos restantes deben quedar "compactos" desde la posicion 0.
+	 * @return el elemento eliminado.
+	 * @throws ElementNotFoundException si no hay elementos en la lista.
+	 */
 	public T removeFirst() throws ElementNotFoundException 
 	{
 		if( isEmpty( ) )
@@ -83,6 +117,12 @@ public class LinkedList< T extends Comparable< T > > implements IDataStructure< 
 		return removed;
 	}
 
+	/**
+	 * Elimina el ultimo dato de la lista.
+	 * Los datos restantes deben quedar "compactos" desde la posicion 0.
+	 * @return el elemento eliminado.
+	 * @throws ElementNotFoundException si no hay elementos en la lista.
+	 */
 	public T removeLast() throws ElementNotFoundException 
 	{
 		if( isEmpty( ) )
@@ -102,6 +142,14 @@ public class LinkedList< T extends Comparable< T > > implements IDataStructure< 
 		return removed;
 	}
 
+	/**
+	 * Elimina el elemento con la posicion que ingresa por parametro.
+	 * Los datos restantes deben quedar "compactos" desde la posicion 0.
+	 * @param pos. La posicion del elemento que se quiere eliminar. pos >= 1
+	 * @return el elemento eliminado.
+	 * @throws InvalidIndexException si la posición es menor a 1 o mayor al tamaño del arreglo.
+	 * @throws ElementNotFoundException si no hay elementos en el arreglo.
+	 */
 	public T deleteElementPos(int pos) throws ElementNotFoundException, InvalidIndexException 
 	{
 		if( pos < 1 || pos > actSize )
@@ -121,6 +169,13 @@ public class LinkedList< T extends Comparable< T > > implements IDataStructure< 
 		return removed;
 	}
 
+	/**
+	 * Eliminar un dato que ingresa por parámetro de la lista encadenada.
+	 * Los datos restantes deben quedar "compactos" desde la posicion 0.
+	 * @param element. Elemento de eliminacion en el arreglo
+	 * @return el elemento eliminado
+	 * @throws ElementNotFoundException si el elemento a eliminar es inválido, no está en el arreglo, no hay elementos en el arreglo.
+	 */
 	public T deleteElement(T element) throws ElementNotFoundException 
 	{
 		if( element == null )
@@ -150,6 +205,11 @@ public class LinkedList< T extends Comparable< T > > implements IDataStructure< 
 		return removed;
 	}
 
+	/**
+	 * Retorna el primer elemento de la lista.
+	 * @return primer elemento de la lista.
+	 * @throws ElementNotFoundException si no hay elementos en el arreglo o no está inicializado.
+	 */
 	public T firstElement() throws ElementNotFoundException 
 	{
 		if( isEmpty( ) )
@@ -157,6 +217,11 @@ public class LinkedList< T extends Comparable< T > > implements IDataStructure< 
 		return header.getElement( );
 	}
 
+	/**
+	 * Retorna el ultimo elemento de la lista.
+	 * @return ultimo elemento de la lista.
+	 * @throws ElementNotFoundException si no hay elementos en la lista.
+	 */
 	public T lastElement() throws ElementNotFoundException 
 	{
 		if(actSize == 0)
@@ -172,6 +237,13 @@ public class LinkedList< T extends Comparable< T > > implements IDataStructure< 
 		}
 	}
 
+	/**
+	 * Retornar el elemento en la posicion i
+	 * @param i posicion de consulta
+	 * @return elemento de consulta.
+	 * @throws InvalidIndexException si la posición es menor a 1 o mayor al tamaño del arreglo.
+	 * @throws ElementNotFoundException si no hay elementos en el arreglo.
+	 */
 	public T getElementPos(int i) throws InvalidIndexException, ElementNotFoundException 
 	{
 		if( isEmpty( ) )
@@ -184,7 +256,12 @@ public class LinkedList< T extends Comparable< T > > implements IDataStructure< 
 		return actual.getElement();
 	}
 
-
+	/**
+	 * Buscar un dato en el arreglo.
+	 * @param dato Objeto de busqueda en el arreglo
+	 * @return elemento encontrado en el arreglo (si existe).
+	 * @throws ElementNotFoundException si el elemento a buscado es inválido, no está en el arreglo, no hay elementos en el arreglo,
+	 */
 	public T getElement(T dato) throws ElementNotFoundException 
 	{
 		if( dato == null || isEmpty( ) )
@@ -202,11 +279,21 @@ public class LinkedList< T extends Comparable< T > > implements IDataStructure< 
 		return get;
 	}
 
+	/**
+	 * Retorna si la lista tiene o no elementos.
+	 * @return true si no hay elementos en el arreglo, false de lo contrario.
+	 */
 	public boolean isEmpty() 
 	{
 		return actSize == 0;
 	}
 
+	/**
+	 * Retorna la posicion del elemento que ingresa por parametro.
+	 * @param element el elemento a analizar.
+	 * @return posicion del elemento.
+	 * @throws ElementNotFoundException si el elemento a buscado es inválido, no está en la lista, no hay elementos en el arreglo o no esta inicializado
+	 */
 	public int isPresent(T element) throws ElementNotFoundException 
 	{
 		int pos = -1;
@@ -224,6 +311,13 @@ public class LinkedList< T extends Comparable< T > > implements IDataStructure< 
 		return pos;
 	}
 
+	/**
+	 * Intercambia la informacion de los elementos en dos posiciones validas
+	 * @param pos1 la posicion del elemento 1.
+	 * @param pos2 la posicion del elemento 2.
+	 * @throws InvalidIndexException si alguno de los indices no está entre 1 y el numero de elementos del arreglo o los indices son iguales.
+	 * @throws ElementNotFoundException si no hay al menos dos elementos en el arreglo o no esta inicializado
+	 */
 	public void exchange(int pos1, int pos2) throws ElementNotFoundException, InvalidIndexException 
 	{
 		if( pos1 < 1 || pos1 > actSize || pos2 < 1 || pos2 > actSize)
@@ -252,6 +346,13 @@ public class LinkedList< T extends Comparable< T > > implements IDataStructure< 
 		}
 	}
 
+	/**
+	 * Actualiza la informacion en una posicion valida.
+	 * @param pos. La posicion donde se quiere actualizar la informacion.
+	 * @param elem. El elemento que se quiere insertar.
+	 * @throws InvalidIndexException si la posición es menor a 1 o mayor al tamaño del arreglo.
+	 * @throws ElementNotFoundException si el elemento a ingresar es inválido o la lista esta vacia o sin inicializar.
+	 */
 	public void changeInfo(int pos, T elem) throws ElementNotFoundException, InvalidIndexException 
 	{
 		if( pos < 1 || pos > actSize)

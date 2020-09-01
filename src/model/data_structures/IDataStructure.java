@@ -10,7 +10,6 @@ public interface IDataStructure< T extends Comparable< T > >
 
 	/**
 	 * Agrega el elemento de forma compacta al principio de la lista.
-	 * Caso Especial: Si el arreglo esta lleno debe aumentarse su capacidad, agregar el nuevo dato y deben quedar multiples casillas disponibles para futuros nuevos datos.
 	 * @param element. Elemento a agregar
 	 * @throws ElementNotFoundException si el elemento a agregar es null o la lista no esta inicializada.
 	 */
@@ -26,11 +25,10 @@ public interface IDataStructure< T extends Comparable< T > >
 
 	/**
 	 * Agregar un dato de forma compacta en la posicion que ingresa por parámetro 
-	 * Caso Especial: Si el arreglo esta lleno debe aumentarse su capacidad, agregar el nuevo dato y deben quedar multiples casillas disponibles para futuros nuevos datos.
 	 * @param element. Elemento a agregar.
 	 * @param pos. Posicion donde se debe agregar el elemento. pos >= 1
 	 * @throws InvalidIndexException si la posición es menor a 1 o mayor al tamaño del arreglo.
-	 * @throws ElementNotFoundException si el elemento a agregar es null o la lista no esta inicializada.
+	 * @throws ElementNotFoundException si el elemento a agregar es null.
 	 */
 	public void insertElement( T element, int pos ) throws ElementNotFoundException, InvalidIndexException;
 

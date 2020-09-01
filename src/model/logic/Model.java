@@ -42,10 +42,7 @@ public class Model
 	/**
 	 * Atributos del modelo del mundo
 	 */
-
-	private LinkedList<Movie> linkedList;
-
-	private DynamicArray<Movie> dynamicArray;
+	private IDataStructure<Movie> dataStructure;
 
 	private ShellSort shellSort;
 
@@ -72,15 +69,15 @@ public class Model
 	 * Carga los datos desde los archivos .csv que se encuentran en la carpeta data del proyecto
 	 * @throws DataLoadException si hay problemas al cargar los datos.
 	 */
-	public void dataLoad( int dataStructure ) throws DataLoadException
+	public void dataLoad( int intDataStructure ) throws DataLoadException
 	{
 		try
 		{
-			IDataStructure d = null;
-			if( dataStructure == 1 )
-				d = new LinkedList<Movie>( );
+			if( intDataStructure == 1 )
+				dataStructure = new LinkedList<Movie>( );
 			else
-				d = new DynamicArray<Movie>( 2000 );
+				dataStructure = new DynamicArray<Movie>( 2000 );
+			
 			CSVParser parser = new CSVParserBuilder().withSeparator(';').build( );
 			CSVReader readerDetails = new CSVReaderBuilder( new FileReader( "./data/SmallMoviesDetailsCleaned.csv" )).withCSVParser( parser ).withSkipLines( 1 ).build( );
 			CSVReader readerCasting = new CSVReaderBuilder( new FileReader( "./data/MoviesCastingRaw-small.csv" )).withCSVParser( parser ).withSkipLines( 1 ).build( );
@@ -89,12 +86,8 @@ public class Model
 			while( ( nextLineDetails = readerDetails.readNext( ) ) != null &&  ( nextLineCasting = readerCasting.readNext( ) ) != null )
 			{
 				Movie m = new Movie( nextLineDetails[ 0 ], nextLineDetails[ 1 ], nextLineDetails[ 2 ], nextLineDetails[ 3 ], nextLineDetails[ 4 ], nextLineDetails[ 5 ], nextLineDetails[ 6 ], nextLineDetails[ 7 ], nextLineDetails[ 8 ], nextLineDetails[ 9 ], nextLineDetails[ 10 ], nextLineDetails[ 11 ], nextLineDetails[ 12 ], nextLineDetails[ 13 ], nextLineDetails[ 14 ], nextLineDetails[ 15 ], nextLineDetails[ 16 ], nextLineDetails[ 17 ], nextLineDetails[ 18 ], nextLineDetails[ 19 ], nextLineDetails[ 20 ], nextLineDetails[ 21 ], nextLineCasting[ 1 ], nextLineCasting[ 2 ], nextLineCasting[ 3 ], nextLineCasting[ 4 ], nextLineCasting[ 5 ], nextLineCasting[ 6 ], nextLineCasting[ 7 ], nextLineCasting[ 8 ], nextLineCasting[ 9 ], nextLineCasting[ 10 ], nextLineCasting[ 11 ], nextLineCasting[ 12 ], nextLineCasting[ 13 ], nextLineCasting[ 14 ], nextLineCasting[ 15 ], nextLineCasting[ 16 ], nextLineCasting[ 17 ], nextLineCasting[ 18 ] );
-				d.addLast( m );
+				dataStructure.addLast( m );
 			}
-			if( dataStructure == 1 )
-				linkedList = ( LinkedList ) d;
-			else if( dataStructure == 2 )
-				dynamicArray = ( DynamicArray ) d;
 		}
 		catch( FileNotFoundException FNFE )
 		{
@@ -118,29 +111,33 @@ public class Model
 			e.printStackTrace();
 		}
 	}
-
-	public LinkedList<Movie> getLinkedList( ) 
+	
+	/**
+	 * Retorna la estructura de datos de tipo IDataStructure que este inicializada actualmente, si no hay ninguna retorna null;
+	 * @return dataStructure.
+	 */
+	public IDataStructure<Movie> getDataStructure( )
 	{
-		return linkedList;
+		return dataStructure;
 	}
 
-	public DynamicArray<Movie> getDynamicArray( ) 
-	{
-		return dynamicArray;
-	}
-
+	/**
+	 * Retorna una referencia a la clase ShellSort que maneja los ordenamientos.
+	 * @return shellSort.
+	 */
 	public ShellSort getShellSort( ) 
 	{
 		return shellSort;
 	}
 
+	/**
+	 * Ordena la estructura de datos que se encuentra inicializada actualmente.
+	 * @throws ShellSortException si no hay ninguna estructura de datos inicializada para ordenar.
+	 */
 	public void shellSortPopularity( ) throws ShellSortException
 	{
-		if( linkedList != null )
-			shellSort.sort( linkedList );
-		else if( dynamicArray != null )
-			shellSort.sort( dynamicArray );
-		else
+		if( dataStructure == null )
 			throw new ShellSortException( "No hay ninguna estructura de datos inicializada ni cargada." );
+		shellSort.sort( dataStructure );
 	}
 }
