@@ -1,7 +1,5 @@
 package model.data_structures;
 
-import model.logic.Movie;
-
 /**
  * Clase que se encarga del ordenamiento de una estructura de datos tipo IDataStructure.
  */
@@ -23,20 +21,20 @@ public class ShellSort
 		{
 			for( int i = h; i < N; i++ )
 			{
-					try 
-					{
-						for( int j = i; j >= h && less( dataStructure.getElementPos( j + 1 ), dataStructure.getElementPos( j - h + 1 ) ); j -= h )
-							exch( dataStructure, j + 1, j - h + 1);
-					}
-					catch (ElementNotFoundException | InvalidIndexException e ) 
-					{
-						throw new ShellSortException( "Error al acceder a elementos para realizar el ordenamiento" );
-					}
+				try 
+				{
+					for( int j = i; j >= h && less( dataStructure.getElementPos( j + 1 ), dataStructure.getElementPos( j - h + 1 ) ); j -= h )
+						exch( dataStructure, j + 1, j - h + 1);
+				}
+				catch (ElementNotFoundException | InvalidIndexException e ) 
+				{
+					throw new ShellSortException( "Error al acceder a elementos para realizar el ordenamiento" );
+				}
 			}
 			h = h / 3;
 		}
 	}
-	
+
 	/**
 	 * Retorna true si v es menor que w, false de lo contrario
 	 * @param v primer elemento a comparar.
@@ -47,7 +45,7 @@ public class ShellSort
 	{
 		return v.compareTo( w ) < 0;
 	}
-	
+
 	/**
 	 * Intercambia dos elementos de la estructura de datos
 	 * @param dataStructure. La estructura de datos a ordenar.

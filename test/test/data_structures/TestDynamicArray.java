@@ -8,7 +8,6 @@ import org.junit.Test;
 
 import model.data_structures.DynamicArray;
 import model.data_structures.ElementNotFoundException;
-import model.data_structures.IDataStructure;
 import model.data_structures.InvalidIndexException;
 
 /**
@@ -61,6 +60,22 @@ public class TestDynamicArray
 		assertTrue( "Se esperaba que el arreglo duplicara su tamano", 10 == arreglo.maxSize( ));
 	}
 
+	@Test
+	public void testAddFirst( )
+	{
+		setUp1(  );
+		String s;
+		try {
+			arreglo.addFirst( "Javier" );
+			s = ( String ) arreglo.getElementPos( 1 );
+			assertTrue( s.equals("Javier"));
+		}
+		catch( Exception e )
+		{
+			fail( );
+		}
+	}
+	
 	@Test
 	public void testAddLast( )
 	{
@@ -187,5 +202,4 @@ public class TestDynamicArray
 			fail( );
 		}
 	}
-
 }

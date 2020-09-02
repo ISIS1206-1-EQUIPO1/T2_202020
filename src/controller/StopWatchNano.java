@@ -9,7 +9,7 @@ public class StopWatchNano
 	 * Constante que indica el tiempo en el que se inicia.
 	 */
 	private final long start;
-	
+
 	/**
 	 * Metodo constructor de la clase.
 	 * Inicializa la constante start, como el tiempo actual (cuando se llama el metodo)
@@ -18,7 +18,7 @@ public class StopWatchNano
 	{
 		start = System.nanoTime( );
 	}
-	
+
 	/**
 	 * Retorna en segundos el tiempo transcurrido entre el inicio y el tiempo actual.
 	 * @return tiempo transcurrido.

@@ -1,5 +1,8 @@
 package model.data_structures;
 
+/**
+ * Clase que representa una estructura de dados de tipo lista enlazada.
+ */
 public class LinkedList< T extends Comparable< T > > implements IDataStructure< T > 
 {
 	private Node < T > header;

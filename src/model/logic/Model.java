@@ -29,22 +29,13 @@ public class Model
 	private IDataStructure<Movie> dataStructure;
 
 	/**
-	 * Constructor del modelo del mundo con capacidad predefinida
+	 * Constructor del modelo del mundo
 	 * @throws DataLoadException 
 	 * @throws IOException 
 	 */
 	public Model( )
 	{
-
-	}
-
-	/**
-	 * Constructor del modelo del mundo con capacidad dada
-	 * @param tamano
-	 */
-	public Model( int size )
-	{
-
+		dataStructure = null;
 	}
 
 	/**
@@ -59,7 +50,7 @@ public class Model
 				dataStructure = new LinkedList<Movie>( );
 			else
 				dataStructure = new DynamicArray<Movie>( 2000 );
-			
+
 			CSVParser parser = new CSVParserBuilder().withSeparator(';').build( );
 			CSVReader readerDetails = new CSVReaderBuilder( new FileReader( "./data/SmallMoviesDetailsCleaned.csv" )).withCSVParser( parser ).withSkipLines( 1 ).build( );
 			CSVReader readerCasting = new CSVReaderBuilder( new FileReader( "./data/MoviesCastingRaw-small.csv" )).withCSVParser( parser ).withSkipLines( 1 ).build( );
@@ -93,7 +84,7 @@ public class Model
 			e.printStackTrace();
 		}
 	}
-	
+
 	/**
 	 * Retorna la estructura de datos de tipo IDataStructure que este inicializada actualmente, si no hay ninguna retorna null;
 	 * @return dataStructure.

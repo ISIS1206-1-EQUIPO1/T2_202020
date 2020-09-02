@@ -85,6 +85,7 @@ public class DynamicArray< T extends Comparable< T > > implements IDataStructure
 		copia[ 0 ] = element;
 		for( int i = 0; i < actSize; i++ )
 			copia[ i + 1 ] = elements[ i ];
+		elements = copia;
 		actSize++;
 	}
 
@@ -142,10 +143,8 @@ public class DynamicArray< T extends Comparable< T > > implements IDataStructure
 		if( elements == null || isEmpty( ) )
 			throw new ElementNotFoundException( "No hay elementos en el arreglo o no esta inicializado" );
 		T eliminado = elements[ 0 ];
-		T [ ] copia = (T[]) new Comparable[ maxSize ];
 		for( int i = 1; i < actSize; i++ )
-			copia[ i - 1 ] = elements[ i ];
-		elements = copia;
+			elements[ i - 1 ] = elements[ i ];
 		actSize--;
 		return eliminado;
 	}
@@ -162,10 +161,7 @@ public class DynamicArray< T extends Comparable< T > > implements IDataStructure
 		if( elements == null || isEmpty( ) )
 			throw new ElementNotFoundException( "No hay elementos en el arreglo o no esta inicializado" );
 		T eliminado = elements[ actSize - 1  ];
-		T [ ] copia = (T[]) new Comparable[ maxSize ];
-		for( int i = 0; i < actSize - 1 ; i++ )
-			copia[ i ] = elements[ i ];
-		elements = copia;
+		elements[ actSize - 1 ] = null;
 		actSize--;
 		return eliminado;
 	}
